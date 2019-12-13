@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <style>
+            .button {
+                position: absolute;
+                display: inline-block;
+                padding: 25px 25px;
+                font-size: 24px;
+                cursor: pointer;
+                text-align: center;   
+                text-decoration: none;
+                outline: none;
+                color: #fff;
+                background-color: #3C3C3C;
+                border: none;
+                border-radius: 50px;
+                box-shadow: 0 9px #999;
+                top: 250px;
+                left: 585px;
+            }
+
+            .button:hover {background-color: #3C3C3C}
+
+            .button:active {
+                background-color: #3C3C3C;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+            img.header-image {
+                width: 700px;
+                height: 700px;
+            }
+            
+            div.header-wrapper {
+                position: relative;
+            }
+
+            div.header-contents {
+                position: absolute;
+                width: 100%;
+                top: 0;
+                color: #ffffff;
+            }
+
+            img.header-image1 {
+                position: absolute;
+                width: 3cm;
+                height: 4cm;
+                top: 8cm;
+                left: 1cm;
+            }   
+            img.header-image2 {
+                position: absolute;
+                width: 3cm;
+                height: 4cm;
+                top: 8cm;
+                left: 4.7cm;
+            }   
+            img.header-image3 {
+                position: absolute;
+                width: 3cm;
+                height: 4cm;
+                top: 8cm;
+                left: 8.4cm;
+            }   
+            img.header-image4 {
+                position: absolute;
+                width: 3cm;
+                height: 4cm;
+                top: 8cm;
+                left: 12.1cm;
+            }                
+        </style>
+        <script>
+            var alreadyJackpotArray = [];
+
+            var noTimer1;
+            var noTimer2;
+            var noTimer3;
+            var noTimer4;
+    
+            var rand1;
+            
+            var groupID;
+            var randMap;
+            
+            function Start() {
+                document.getElementById("startBtn").disabled = true;
+                generate();
+
+                randMap = {
+                    0: rand1
+                };
+    
+                var jackPotNum = randMap[0];
+    
+                var word = [];
+    
+                if (jackPotNum.toString().length == 1) {
+                    let wordSplit = [];
+                    wordSplit = jackPotNum.toString().split(""); 
+                    word[0] = 0;
+                    word[1] = 0;
+                    word[2] = 0;
+                    word[3] = wordSplit[1];
+                }
+                else if (jackPotNum.toString().length == 2) {
+                    let wordSplit = [];
+                    wordSplit = jackPotNum.toString().split(""); 
+                    word[0] = 0;
+                    word[1] = 0;
+                    word[2] = wordSplit[0];
+                    word[3] = wordSplit[1];
+                }
+                else if (jackPotNum.toString().length == 3) {
+                    let wordSplit = [];
+                    wordSplit = jackPotNum.toString().split(""); 
+                    word[0] = 0;
+                    word[1] = wordSplit[0];
+                    word[2] = wordSplit[1];
+                    word[3] = wordSplit[2];
+                }
+                else {
+                    word = jackPotNum.toString().split(""); 
+                }
+                
+                alreadyJackpotArray.push(jackPotNum);
+
+                // document.getElementById('compare').innerHTML = word;     
+
+                noTimer1 = setInterval(RandAction1, 50);
+                noTimer2 = setInterval(RandAction2, 50);
+                noTimer3 = setInterval(RandAction3, 50);
+                noTimer4 = setInterval(RandAction4, 50);
+    
+                setTimeout(function() { 
+                    document.getElementById('randimg1').src = "./images/"+word[0]+".png"; 
+                    clearInterval(noTimer1); 
+                }, 3000);
+                setTimeout(function() { 
+                    document.getElementById('randimg2').src = "./images/"+word[1]+".png"; 
+                    clearInterval(noTimer2); 
+                }, 4000);
+                setTimeout(function() { 
+                    document.getElementById('randimg3').src = "./images/"+word[2]+".png"; 
+                    clearInterval(noTimer3); 
+                }, 5000);
+                setTimeout(function() { 
+                    document.getElementById('randimg4').src = "./images/"+word[3]+".png"; 
+                    document.getElementById("startBtn").disabled = false; 
+                    clearInterval(noTimer4); 
+                }, 6000);
+            }
+            
+            function generate() {
+                rand1 = Math.floor((Math.random() * 1401) + 1);
+                
+                if (alreadyJackpotArray.indexOf(rand1) != -1){
+                    generate();
+                }
+            }
+            
+            function RandAction1() {
+                document.getElementById('randimg1').src = "./images/"+Math.floor((Math.random() * 9) + 0)+".png";                        
+            }
+    
+            function RandAction2() {
+                document.getElementById('randimg2').src = "./images/"+Math.floor((Math.random() * 9) + 0)+".png";
+            }
+    
+            function RandAction3() {
+                document.getElementById('randimg3').src = "./images/"+Math.floor((Math.random() * 9) + 0)+".png";
+            }
+    
+            function RandAction4() {
+                document.getElementById('randimg4').src = "./images/"+Math.floor((Math.random() * 9) + 0)+".png";
+            }
+        </script>
+    </head>
+    <body>
+        <!-- <div id="compare" class="bgimg"></div> -->
+        <div class="header-wrapper">
+            <img class="header-image" src="./images/background.png" />
+            <button id="startBtn" class="button" onclick="Start()">Start</button>
+            <div id="numberDiv">
+                <img id="randimg1" class="header-image1" src="./images/0.png" />
+                <img id="randimg2" class="header-image2" src="./images/0.png" />
+                <img id="randimg3" class="header-image3" src="./images/0.png" />
+                <img id="randimg4" class="header-image4" src="./images/0.png" />
+            </div>
+        </div>
+    </body>
+</html>
+    
+    
