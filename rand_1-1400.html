@@ -149,6 +149,7 @@
                 setTimeout(function() { 
                     document.getElementById('randimg4').src = "./images/"+word[3]+".png"; 
                     document.getElementById("startBtn").disabled = false; 
+                    document.getElementById("startBtn").focus();
                     clearInterval(noTimer4); 
                 }, 6000);
             }
@@ -190,6 +191,21 @@
                 <img id="randimg4" class="header-image4" src="./images/0.png" />
             </div>
         </div>
+        <script>
+            document.getElementById("startBtn").focus();
+            var btn = document.getElementById("startBtn");
+            btn.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("startBtn").click();
+                }
+
+                if (event.keyCode === 9) {
+                    event.preventDefault();
+                    document.getElementById("startBtn").focus();
+                }
+            });
+        </script>
     </body>
 </html>
     
